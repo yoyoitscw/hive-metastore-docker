@@ -1,0 +1,19 @@
+# docker build -t hpdevelop/hive-metastore:3.3.3-cve-fix-log4j-test -f Dockerfile.vultest .
+FROM hpdevelop/hive-metastore:3.3.3-cve-fix-3
+
+USER root
+# RUN apt install zip
+# RUN zip -q -d /opt/apache-hive-metastore-3.0.0-bin/lib/log4j-core-2.12.2.jar org/apache/logging/log4j/core/lookup/JndiLookup.class
+RUN rm -r ./apache-hive-metastore-${METASTORE_VERSION}-bin
+COPY apache-hive-metastore-3.0.0-bin ./apache-hive-metastore-${METASTORE_VERSION}-bin
+
+RUN curl -L https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.19.tar.gz | tar zxf - && \
+    cp mysql-connector-java-8.0.19/mysql-connector-java-8.0.19.jar ${HIVE_HOME}/lib/ && \
+    rm -rf  mysql-connector-java-8.0.19
+
+COPY scripts/entrypoint.sh /entrypoint.sh
+
+RUN rm -r ./hadoop-${HADOOP_VERSION}
+
+
+ENTRYPOINT ["sleep","infinity"]

@@ -1,3 +1,4 @@
 ./idea
 apache-hive-metastore-3.0.0-*/
 hadoop-3.4.0-SNAPSHOT/
+hadoop-3.3.3/

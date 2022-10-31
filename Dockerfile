@@ -1,7 +1,7 @@
 FROM openjdk:8u242-jre
 
 # Avoid CVEs
-RUN apt update; apt --only-upgrade install dpkg liblz4-1 libgnutls30 libldap-2.4-2 libldap-common libssl1.1 openssl libexpat1
+RUN apt update; apt --only-upgrade install dpkg liblz4-1 libgnutls30 libldap-2.4-2 libldap-common libssl1.1 openssl libexpat1 procps
 
 WORKDIR /opt
 
@@ -9,11 +9,11 @@ ENV HADOOP_VERSION=3.3.3
 ENV METASTORE_VERSION=3.0.0
 
 ENV HADOOP_HOME=/opt/hadoop-${HADOOP_VERSION}
-ENV HIVE_HOME=/opt/apache-hive-metastore-${METASTORE_VERSION}-bin
+ENV HIVE_HOME=/opt/apache-hive-${METASTORE_VERSION}-bin
 
-COPY hadoop-3.4.0-SNAPSHOT ./hadoop-${HADOOP_VERSION}
+COPY hadoop-3.3.3 ./hadoop-${HADOOP_VERSION}
 
-COPY apache-hive-metastore-3.0.0-bin ./apache-hive-metastore-${METASTORE_VERSION}-bin
+COPY apache-hive-3.0.0-bin ./apache-hive-${METASTORE_VERSION}-bin
 
 RUN curl -L https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.19.tar.gz | tar zxf - && \
     cp mysql-connector-java-8.0.19/mysql-connector-java-8.0.19.jar ${HIVE_HOME}/lib/ && \

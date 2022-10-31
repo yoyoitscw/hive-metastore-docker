@@ -1,0 +1,7 @@
+<configuration>
+    <property>
+        <name>fs.default.name</name>
+        <value></value>
+        <description>For YARN this configuration variable is called fs.defaultFS.</description>
+    </property>
+</configuration>
